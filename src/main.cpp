@@ -1,6 +1,8 @@
 #include <Arduino.h>
+//libraries
 #include <CAN.h>
 
+//Variables and function
 #include <varible_def.h>
 
 
@@ -15,17 +17,17 @@ void setup() {
   }
 }
 
+
+
+
 void loop() {
 
-   int packetSize = CAN.parsePacket();
+  int packetSize = CAN.parsePacket();
   if (packetSize) {
   long packId = CAN.packetId();
-    if(packId==RPM_PKT_ID){      //0CFFF048 for RPM,TPS,FUEL,Ignition 
-     
-
+    if(packId==RPM_PKT_ID){      
       int d=0;
       while (CAN.available()) {
-        
         if (d==0){
           d++;
           LSB=(int)CAN.read();
@@ -36,7 +38,7 @@ void loop() {
         }
           CAN.read(); d++;
       }
-      RPM=((MSB*255)+LSB);
+      RPM=((MSB*255)+LSB);       
       Serial.println(RPM);
       Serial.println();
     
@@ -44,8 +46,7 @@ void loop() {
 
     if(packId==BATT_PKT_ID){    
     
-      // only print packet data for non-RTR packets
-      bool e=0;
+      int e=0;
       while (CAN.available()) {
         
         
@@ -65,8 +66,7 @@ void loop() {
       Serial.println();
       Serial.print(tMSB);
       Serial.print("    ");
-      Serial.print(tLSB);
-    
+      Serial.print(tLSB);  
     }
     Serial.println();
   }
