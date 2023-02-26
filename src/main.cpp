@@ -39,12 +39,13 @@ void loop() {
           CAN.read(); d++;
       }
       RPM=((MSB*255)+LSB);       
+
       Serial.println(RPM);
       Serial.println();
     
     }
 
-    if(packId==BATT_PKT_ID){    
+    if(packId==TEMP_PKT_ID){    
     
       int e=0;
       while (CAN.available()) {
