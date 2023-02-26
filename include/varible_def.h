@@ -3,7 +3,7 @@
 
 // CAN bus varibales
 #define RPM_PKT_ID 218099784
-#define BATT_PKT_ID 218101064
+#define TEMP_PKT_ID 218101064
 #define CAN_FREQ  1000E3
 
 int MSB=0,LSB=0;
