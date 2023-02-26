@@ -10,7 +10,8 @@ int MSB=0,LSB=0;
 int tMSB=0,tLSB=0;
 unsigned long RPM;
 float temp;
-
+long packId 
+int packetSize
 
 
 #endif
