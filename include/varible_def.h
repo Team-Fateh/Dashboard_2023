@@ -1,19 +1,17 @@
-#ifndef VARIBLE_DEF_H
-#define VARIBLE_DEF_H
-
+#ifndef VARIBLE_CAN_H
+#define VARIBLE_CAN_H
     // CAN bus varibales
     #define RPM_PKT_ID 218099784
     #define TEMPBATT_PKT_ID 218101064
-    #define CAN_FREQ  1000E3
+    #define CAN_FREQ  500E3
 
-    int rMSB=0,rLSB=0;
-    int tMSB=0,tLSB=0;
-    int vMSB=0,vLSB=0;
-    unsigned long RPM;
+    int32_t packId;
+    int32_t packetSize;
+
+    int8_t rMSB=0,rLSB=0;
+    int8_t tMSB=0,tLSB=0;
+    int8_t vMSB=0,vLSB=0;
+    int32_t RPM;
     float temp;
     float volts;
-    long packId;
-    int packetSize;
-
-
 #endif

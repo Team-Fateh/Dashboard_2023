@@ -1,7 +1,7 @@
 #include <varible_def.h>
 #include <Arduino.h>
 
-void HMI_print(int placeholder, unsigned long value){
+void HMI_print(int placeholder, int32_t value){
     Serial2.print("t");
     Serial2.print(placeholder);
     Serial2.print(".");

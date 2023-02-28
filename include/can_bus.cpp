@@ -2,12 +2,13 @@
 #include <CAN.h>
 
 
-void CAN_get_data (unsigned long int *RPM, float *temp, float *volts){
+void CAN_get_data (int32_t *RPM, float *temp, float *volts){
     packetSize = CAN.parsePacket();
     if(packetSize){
-
+        packId = CAN.packetId();
         //RPM packet
-        if(packId==RPM_PKT_ID){      
+        if(packId==RPM_PKT_ID){   
+            Serial.print("RPM");
         int d=0;
         while (CAN.available()) {
             if (d==0){
@@ -25,6 +26,7 @@ void CAN_get_data (unsigned long int *RPM, float *temp, float *volts){
 
         //Temp packet
         if(packId==TEMPBATT_PKT_ID){    
+            Serial.println("temp");
         int e=0;
         while (CAN.available()) {
             if (e==0){
