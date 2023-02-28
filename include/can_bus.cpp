@@ -1,17 +1,29 @@
-#include <varible_def.h>
-#include <CAN.h>
+#include <varible_def.h>        //Include variables in each function.cpp file
+                                //To avoid conflits #ifndef is used in variable.h
+
+void CAN_setup (long freq ){                            //Starts CAN & puts out message if CAN starting failed  
+     if(!CAN.begin(freq)){                              //freq is the CAN freq 500E3 or 1000E3 etc
+        Serial.println("Starting CAN failed");
+        CANstatus=0;
+  }
+    else{
+        CANstatus=1;
+    }
+}
 
 
-void CAN_get_data (int32_t *RPM, float *temp, float *volts){
-    packetSize = CAN.parsePacket();
+
+
+
+void CAN_get_data (int32_t *p_RPM, float *p_temp, float *p_volts){      //Puts data to the pointer 
+    packetSize = CAN.parsePacket();                                     //returns 1 if packet received or else 0
     if(packetSize){
-        packId = CAN.packetId();
-        //RPM packet
-        if(packId==RPM_PKT_ID){   
-            Serial.print("RPM");
+        packId = CAN.packetId();                                        //packetId is defined by Pe3 Standard Messages, follow link for more 
+        //RPM packet                                                    //https://github.com/Team-Fateh/ECU/blob/main/Documentation%20%26%20Resources/AN400_CAN_Protocol_C.pdf
+        if(packId==RPM_PKT_ID){                                         //RPM_PKT_ID 218099784
         int d=0;
         while (CAN.available()) {
-            if (d==0){
+            if (d==0){                            //0th and 1st Byte are RPM data
                 d++;
                 rLSB=(int)CAN.read();
             }
@@ -21,15 +33,15 @@ void CAN_get_data (int32_t *RPM, float *temp, float *volts){
             }
             CAN.read(); d++;
         }
-        *RPM=((rMSB*255)+rLSB);       
+        *p_RPM=((rMSB*255)+rLSB);       
         }
 
         //Temp packet
-        if(packId==TEMPBATT_PKT_ID){    
+        if(packId==TEMPBATT_PKT_ID){                                    //TEMPBATT_PKT_ID 218101064
             Serial.println("temp");
         int e=0;
         while (CAN.available()) {
-            if (e==0){
+            if (e==0){                            //0th and 1st Byte are voltage data
                 e++;
                 vLSB=(int)CAN.read();
             }
@@ -39,7 +51,7 @@ void CAN_get_data (int32_t *RPM, float *temp, float *volts){
             }
             if (e==4){                                 
                 e++;
-                tLSB=(int)CAN.read();              //4th & 5th Byte are tremp data
+                tLSB=(int)CAN.read();             //4th & 5th Byte are temp data
             }
             if (e==5){
                 e++;
@@ -48,13 +60,8 @@ void CAN_get_data (int32_t *RPM, float *temp, float *volts){
             CAN.read(); e++;
         }
 
-        *temp =((tMSB*255)+tLSB)*0.1;
-        *volts =((vMSB*256)+vLSB)*0.01;
-
-
-
-
-
+        *p_temp =((tMSB*255)+tLSB)*0.1;
+        *p_volts =((vMSB*256)+vLSB)*0.01;
 
         }
     }

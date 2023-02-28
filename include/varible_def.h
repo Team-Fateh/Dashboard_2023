@@ -5,6 +5,7 @@
     #define TEMPBATT_PKT_ID 218101064
     #define CAN_FREQ  500E3
 
+    bool CANstatus;
     int32_t packId;
     int32_t packetSize;
 

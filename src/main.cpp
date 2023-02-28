@@ -15,7 +15,7 @@
 void setup(){
   Serial.begin(115200);
   Serial2.begin(9600);
-  CAN.begin(CAN_FREQ);
+  CAN_setup(CAN_FREQ);
   }
 
 
@@ -23,19 +23,10 @@ void setup(){
 
 void loop(){
 
-  hmiCANGreen(); // CAN connected 
   CAN_get_data(&RPM,&temp,&volts);
   Serial.println(RPM);
-  HMI_print(4,RPM);
-  HMI_print(5,temp);
-  HMI_print(10,volts);
+  Serial.print(temp);
+  Serial.print("\t");
+  Serial.println(volts);
   
-
-
-  hmiCANRed(); //CAN failed 
-
-
-
-
-
 }
