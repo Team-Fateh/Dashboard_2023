@@ -27,7 +27,6 @@ void showLightDis(){                                //Discrete Blue to Green to 
   red =255;
   else
   red =0;
-  Serial.println(red);
   light=map(RPM, 0,11000, 0,19);
   FastLED.clear();
   if(RPM>=0&&RPM<=3500){

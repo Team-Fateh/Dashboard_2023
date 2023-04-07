@@ -15,7 +15,8 @@
 
 void setup(){
   Serial.begin(115200);
-  Serial2.begin(9600, SERIAL_8N1, 26, 25);
+  Serial2.begin(9600, SERIAL_8N1, 26, 25);// rx tx
+  Serial1.begin(230400, SERIAL_8N1, 33, 32); 
   CAN_setup(CAN_FREQ);
   LED_setup();
   }
@@ -24,21 +25,30 @@ void setup(){
 
 
 void loop(){
+  Serial.println("hello Bhorld");
   dur= pulseIn(18,HIGH);
 
   CAN_get_data(&RPM,&temp,&volts);
-  // Serial.print(millis());
-  // Serial.print(RPM);
-  // Serial.print("\t");
-  // Serial.print(temp);
-  // Serial.print("\t");
-  // Serial.println(volts);
 
+
+  if (millis() - canLastTime >=canTime){
+    CAN_setup(CAN_FREQ);
   HMI_print(4,RPM);
   HMI_print(5,(int32_t)temp);
   HMI_print(10,volts);
 
+  Serial.print(millis());
+  Serial.print("\t");
+  Serial.print(RPM);
+  Serial.print("\t");
+  Serial.print(temp);
+  Serial.print("\t");
+  Serial.println(volts);
+  canLastTime = millis();
+  }
+
+
     gear2018();
     showLightDis();
-  delay(100);
+  // delay(100);
 }
