@@ -25,7 +25,7 @@ void setup(){
 
 
 void loop(){
-  Serial.println("hello Bhorld");
+  // Serial1.println("hello Bhorld");       // xbee check
   dur= pulseIn(18,HIGH);
 
   CAN_get_data(&RPM,&temp,&volts);
@@ -37,13 +37,43 @@ void loop(){
   HMI_print(5,(int32_t)temp);
   HMI_print(10,volts);
 
-  Serial.print(millis());
-  Serial.print("\t");
-  Serial.print(RPM);
-  Serial.print("\t");
-  Serial.print(temp);
-  Serial.print("\t");
-  Serial.println(volts);
+  Serial1.print(millis());
+  Serial1.print(",");
+  Serial1.print(RPM);
+  Serial1.print(",");
+  Serial1.print(temp);
+  Serial1.print(",");
+  Serial1.print(gear);
+  Serial1.print(",");
+  Serial1.print("0");   //speed
+  Serial1.print(",");
+  Serial1.print("0");   //brake pressure
+  Serial1.print(",");
+  Serial1.print(volts);
+  Serial1.print(",");
+  Serial1.print("0");   //radiator
+  Serial1.print(",");
+  Serial1.print("0");   //datalogging
+  Serial1.print(",");
+  Serial1.print("0");   //throttle position
+  Serial1.print(",");
+  Serial1.print("0");   //brake temp
+  Serial1.print(",");
+  Serial1.print("0");   //front left load cell
+  Serial1.print(",");
+  Serial1.print("0");   //front right load cell
+  Serial1.print(",");
+  Serial1.print("0");   //rear left load cell
+  Serial1.print(",");
+  Serial1.print("0");   //rear right load cell
+  Serial1.print(",");
+  Serial1.print("0");   //accelerometer x-axis
+  Serial1.print(",");
+  Serial1.print("0");   //accelerometer y-axis
+  Serial1.print(",");
+  Serial1.println("0");   //steering angle  
+
+  // Serial.println();
   canLastTime = millis();
   }
 

@@ -17,6 +17,7 @@ if(dur>=700&&dur<=900)
     Serial2.write(0xff);
     Serial2.write(0xff);
     Serial2.write(0xff);
+    gear ='1';
     }
 
     if(dur>=920&&dur<=1200)
@@ -31,6 +32,7 @@ if(dur>=700&&dur<=900)
     Serial2.write(0xff);
     Serial2.write(0xff);
     Serial2.write(0xff);
+    gear ='N';
     }
 
     if(dur>=1220&&dur<=1500)
@@ -45,6 +47,7 @@ if(dur>=700&&dur<=900)
     Serial2.write(0xff);
     Serial2.write(0xff);
     Serial2.write(0xff);
+    gear ='2';
     }
 
     if(dur>=1520&&dur<=2000)
@@ -59,6 +62,7 @@ if(dur>=700&&dur<=900)
     Serial2.write(0xff);
     Serial2.write(0xff);
     Serial2.write(0xff);
+    gear ='3';
     }
 
 
@@ -74,6 +78,7 @@ if(dur>=700&&dur<=900)
     Serial2.write(0xff);
     Serial2.write(0xff);
     Serial2.write(0xff);
+    gear ='4';
     }
 
     if(dur>=2520&&dur<=3000)
@@ -88,6 +93,7 @@ if(dur>=700&&dur<=900)
     Serial2.write(0xff);
     Serial2.write(0xff);
     Serial2.write(0xff);
+    gear ='5';
     }
     
     if(dur>=3020&&dur<=3500)
@@ -102,5 +108,6 @@ if(dur>=700&&dur<=900)
     Serial2.write(0xff);
     Serial2.write(0xff);
     Serial2.write(0xff);
+    gear ='6';
     }
 }

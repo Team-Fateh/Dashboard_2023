@@ -21,7 +21,7 @@
     
     //gear
     int dur;
-    
+    char gear;
     //RPM led
     #define led_num  18
     #define led_pin  23
