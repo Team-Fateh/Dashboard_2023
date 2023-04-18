@@ -11,13 +11,11 @@ void setup_speed(){
     attachInterrupt(digitalPinToInterrupt(speedPin),speedISR,FALLING);
 }
 
-void startCount(int period)
+void SpeedCount(int period)
 {
   if(millis()-lastTime<period)
   return;
   Speed=((totalCounts*5032.832)/period)/slits;   
-  Serial.println(Speed);
-  //Serial.println(digitalRead(totalCounts));
   lastTime=millis();
   totalCounts=0;
 }

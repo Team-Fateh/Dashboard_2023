@@ -15,9 +15,9 @@
 #include <speed.cpp>
 
 void setup(){
-  Serial.begin(115200); // Serial monitor
-  Serial2.begin(9600, SERIAL_8N1, 26, 25); //HMI Display
-  Serial1.begin(230400, SERIAL_8N1, 33, 32);  // Xbee
+  //Serial.begin(115200); // Serial monitor
+  Serial2.begin(9600, SERIAL_8N1, 26, 25); //HMI Display connected at 26,25(rx.tx) pins
+  Serial1.begin(230400, SERIAL_8N1, 33, 32);  // Xbee connected at 33,32(rx.tx) pins
   CAN_setup(CAN_FREQ);
   LED_setup();
   setup_speed();
@@ -34,7 +34,8 @@ void loop(){
   showLightDis();
   SpeedCount(SPEED_UPDATE_FREQ); // Speed refresh at 100 ms
 
-  if (millis() - canLastTime >=canTime){ //Send
+  if (millis() - canLastTime >=canTime)  //refresh screen at canTime
+  {
   HMI_print(4,RPM);
   HMI_print(5,(int32_t)temp);
   HMI_print(10,volts);

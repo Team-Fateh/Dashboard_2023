@@ -5,7 +5,7 @@
 
 void CAN_setup (long freq ){                            //Starts CAN & puts out message if CAN starting failed  
      if(!CAN.begin(freq)){                              //freq is the CAN freq 500E3 or 1000E3 etc
-        Serial.println("Starting CAN failed");
+        //Serial.println("Starting CAN failed");
         CANstatus=0;
   }
     else{

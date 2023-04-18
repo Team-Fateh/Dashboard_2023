@@ -5,6 +5,7 @@
     #define RPM_PKT_ID 218099784
     #define TEMPBATT_PKT_ID 218101064
     #define CAN_FREQ  1000E3
+    #define SPEED_UPDATE_FREQ 100
     
 
     //can
