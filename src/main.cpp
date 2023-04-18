@@ -13,6 +13,7 @@
 #include <RPM_led.cpp>
 #include <xbee.cpp>
 #include <speed.cpp>
+#include <radiator_check.cpp>
 
 void setup(){
   //Serial.begin(115200); // Serial monitor
@@ -33,6 +34,7 @@ void loop(){
   gear2018();  
   showLightDis();
   SpeedCount(SPEED_UPDATE_FREQ); // Speed refresh at 100 ms
+  check_rad();
 
   if (millis() - canLastTime >=canTime)  //refresh screen at canTime
   {

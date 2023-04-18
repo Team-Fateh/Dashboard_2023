@@ -19,15 +19,20 @@
     int32_t RPM;
     float temp;
     float volts;
-
     long unsigned int canLastTime = 0, canTime = 5;
+
+    //Radiator check
+    bool radCheck;
+    #define radPin 21
     
     //gear
     int dur;
     char gear;
+    #define gearPin 18
+
     //RPM led
     #define led_num  18
-    #define led_pin  23
+    #define ledPin  23
     CRGB leds[led_num];          
     int light=0;
     int ledDur,ledOldDur,red;
@@ -35,9 +40,9 @@
 
     //speed
     volatile unsigned int totalCounts;
-    int speedPin=22;    //front right
-    int lastTime=0;     
-    int slits=28;   //Front wheel
+    #define speedPin 22    //front right
+    #define slits 28   //Front wheel
+    int lastTime=0;      
     float Speed;        
 
 #endif
