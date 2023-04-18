@@ -3,7 +3,7 @@
 #include<CAN.h>
 
 void LED_setup(){
-    FastLED.addLeds<WS2812B, led_pin, GRB>(leds, led_num);
+    FastLED.addLeds<WS2812B, ledPin, GRB>(leds, led_num);
     FastLED.clear();
     FastLED.show();
 }

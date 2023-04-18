@@ -1,6 +1,6 @@
-    #include <varible_def.h>
-    #include<Arduino.h>
-    #include<CAN.h>
+#include <varible_def.h>
+#include<Arduino.h>
+#include<CAN.h>
     void send_xbee(){
   Serial1.print(millis());
   Serial1.print(",");
@@ -16,7 +16,7 @@
   Serial1.print(",");
   Serial1.print(volts);
   Serial1.print(",");
-  Serial1.print("0");   //radiator
+  Serial1.print(radCheck);   //radiator
   Serial1.print(",");
   Serial1.print("0");   //datalogging
   Serial1.print(",");

@@ -4,7 +4,7 @@
 
 
 void gear2018(){
-dur= pulseIn(gearPin,HIGH);
+
 if(dur>=700&&dur<=900)
     {
     Serial2.print("t");
