@@ -15,9 +15,9 @@
 #include <speed.cpp>
 
 void setup(){
-  Serial.begin(115200);
-  Serial2.begin(9600, SERIAL_8N1, 26, 25);// rx tx
-  Serial1.begin(230400, SERIAL_8N1, 33, 32); 
+  Serial.begin(115200); // Serial monitor
+  Serial2.begin(9600, SERIAL_8N1, 26, 25); //HMI Display
+  Serial1.begin(230400, SERIAL_8N1, 33, 32);  // Xbee
   CAN_setup(CAN_FREQ);
   LED_setup();
   setup_speed();
@@ -28,11 +28,11 @@ void setup(){
 
 void loop(){
 
-  // dur= pulseIn(18,HIGH);            // gear time
 
   CAN_get_data(&RPM,&temp,&volts);  // can data
-
-  send_xbee();                      // xbee data send
+  send_xbee();                      // xbee data send 
+  gear2018();  
+  showLightDis();
 
   if (millis() - canLastTime >=canTime){
     // CAN_setup(CAN_FREQ);
@@ -42,9 +42,5 @@ void loop(){
   HMI_print(6,(int32_t)Speed);
   canLastTime = millis();
   }
-    gear2018();
-    showLightDis();
-
-  startCount(100);
- Serial.println("now");
+  SpeedCount(100); // Speed refresh at 100 ms
 }
