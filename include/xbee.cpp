@@ -10,7 +10,7 @@
   Serial1.print(",");
   Serial1.print(gear);
   Serial1.print(",");
-  Serial1.print("0");   //speed
+  Serial1.print(Speed);   //speed
   Serial1.print(",");
   Serial1.print("0");   //brake pressure
   Serial1.print(",");
