@@ -6,6 +6,8 @@
     #define TEMPBATT_PKT_ID 218101064
     #define CAN_FREQ  1000E3
     
+
+    //can
     bool CANstatus;
     int32_t packId;
     int32_t packetSize;
@@ -29,5 +31,12 @@
     int light=0;
     int ledDur,ledOldDur,red;
     char comm;
+
+    //speed
+    volatile unsigned int totalCounts;
+    int speedPin=22;    //front right
+    int lastTime=0;     
+    int slits=28;   //Front wheel
+    float Speed;        
 
 #endif
