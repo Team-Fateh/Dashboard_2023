@@ -28,19 +28,18 @@ void setup(){
 
 void loop(){
 
-
   CAN_get_data(&RPM,&temp,&volts);  // can data
   send_xbee();                      // xbee data send 
   gear2018();  
   showLightDis();
+  SpeedCount(SPEED_UPDATE_FREQ); // Speed refresh at 100 ms
 
-  if (millis() - canLastTime >=canTime){
-    // CAN_setup(CAN_FREQ);
+  if (millis() - canLastTime >=canTime){ //Send
   HMI_print(4,RPM);
   HMI_print(5,(int32_t)temp);
   HMI_print(10,volts);
   HMI_print(6,(int32_t)Speed);
   canLastTime = millis();
   }
-  SpeedCount(100); // Speed refresh at 100 ms
+  
 }
