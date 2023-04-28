@@ -35,7 +35,9 @@ void loop(){
   showLightDis();
   SpeedCount(SPEED_UPDATE_FREQ); // Speed refresh at 100 ms
   check_rad();
-  Serial.println(radCheck);
+  // Serial.println(radCheck);
+  Serial.println(Speed);
+  Serial.println(gear);
   if (millis() - canLastTime >=canTime)  //refresh screen at canTime
   {
   HMI_print(4,RPM);
