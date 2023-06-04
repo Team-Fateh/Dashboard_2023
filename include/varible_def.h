@@ -19,7 +19,7 @@
     int32_t RPM;
     float temp;
     float volts;
-    long unsigned int canLastTime = 0, canTime = 5;
+    long unsigned int canLastTime = 0, canTime = 500;
 
     //Radiator check
     bool radCheck;
