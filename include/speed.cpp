@@ -11,7 +11,7 @@ void setup_speed(){
     attachInterrupt(digitalPinToInterrupt(speedPin),speedISR,FALLING);
 }
 
-void SpeedCount(int period)
+void SpeedCount(unsigned long period)
 {
   if(millis()-lastTime<period)
   return;
