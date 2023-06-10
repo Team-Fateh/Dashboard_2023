@@ -7,8 +7,8 @@
 //Variables
 #include <varible_def.h>
 //functions
-#include <can_bus.cpp>
 #include <HMI.cpp>
+#include <can_bus.cpp>
 #include <gear2018.cpp>
 #include <RPM_led.cpp>
 #include <xbee.cpp>
@@ -21,30 +21,40 @@ void setup(){
   Serial1.begin(230400, SERIAL_8N1, 33, 32);  // Xbee connected at 33,32(rx.tx) pins
   CAN_setup(CAN_FREQ);
   LED_setup();
-  setup_speed();
+  // setup_speed();
   }
 
 
 
 
 void loop(){
+
+  
   dur= pulseIn(gearPin,HIGH);
-  CAN_get_data(&RPM,&temp,&volts);  // can data
-  send_xbee();                      // xbee data send 
   gear2018();  
+  CAN_get_data();  // can data
+  // SpeedCount(SPEED_UPDATE_FREQ); // Speed refresh at 100 ms
+  // check_rad();
+
   showLightDis();
-  SpeedCount(SPEED_UPDATE_FREQ); // Speed refresh at 100 ms
-  check_rad();
-  // Serial.println(radCheck);
-  Serial.println(Speed);
-  Serial.println(gear);
-  if (millis() - canLastTime >=canTime)  //refresh screen at canTime
+
+if (millis() - xbeeLastTime >= xbeeTime)  //refresh screen at canTime
+  {
+  send_xbee();                      // xbee data send 
+  xbeeLastTime = millis();
+  }
+  if (millis() - hmiLastTime >= hmiTime)  //refresh screen at canTime
   {
   HMI_print(4,RPM);
   HMI_print(5,(int32_t)temp);
   HMI_print(10,volts);
   HMI_print(6,(int32_t)Speed);
-  canLastTime = millis();
+  hmiLastTime = millis();
+  CAN.end();
+  CAN.begin(CAN_FREQ);
   }
-  
+  if (canThisTime - canLastTime >= canCheckTime)  //refresh screen at canTime
+  {
+    hmiCANRed();
+  }
 }

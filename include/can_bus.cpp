@@ -1,6 +1,7 @@
 #include <varible_def.h>        //Include variables in each function.cpp file
                                 //To avoid conflits #ifndef is used in variable.h
 #include<Arduino.h>
+
 #include<CAN.h>
 
 void CAN_setup (long freq ){                            //Starts CAN & puts out message if CAN starting failed  
@@ -17,9 +18,12 @@ void CAN_setup (long freq ){                            //Starts CAN & puts out 
 
 
 
-void CAN_get_data (int32_t *p_RPM, float *p_temp, float *p_volts){      //Puts data to the pointer 
+void CAN_get_data (){      //Puts data to the pointer 
     packetSize = CAN.parsePacket();                                     //returns 1 if packet received or else 0
     if(packetSize){
+        hmiCANGreen();
+        canLastTime = canThisTime;
+        canThisTime = millis();
         packId = CAN.packetId();                                        //packetId is defined by Pe3 Standard Messages, follow link for more 
         //RPM packet                                                    //https://github.com/Team-Fateh/ECU/blob/main/Documentation%20%26%20Resources/AN400_CAN_Protocol_C.pdf
         if(packId==RPM_PKT_ID){                                         //RPM_PKT_ID 218099784
@@ -35,7 +39,7 @@ void CAN_get_data (int32_t *p_RPM, float *p_temp, float *p_volts){      //Puts d
             }
             CAN.read(); d++;
         }
-        *p_RPM=((rMSB*255)+rLSB);       
+        RPM=((rMSB*255)+rLSB);       
         }
 
         //Temp packet
@@ -60,9 +64,9 @@ void CAN_get_data (int32_t *p_RPM, float *p_temp, float *p_volts){      //Puts d
             }
             CAN.read(); e++;
         }
-
-        *p_temp =((tMSB*256)+tLSB)*0.1;
-        *p_volts =((vMSB*256)+vLSB)*0.01;
+        temp =((tMSB*256)+tLSB)*0.1;
+        volts =((vMSB*256)+vLSB)*0.01;
         }
     }
 }
+

@@ -19,7 +19,13 @@
     int32_t RPM;
     float temp;
     float volts;
-    long unsigned int canLastTime = 0, canTime = 500;
+    long unsigned int canThisTime = 0, canLastTime = 0, canCheckTime = 1000;
+
+    //hmi
+    long unsigned int hmiLastTime = 0, hmiTime = 500;
+
+    //xbee
+    long unsigned int xbeeLastTime = 0, xbeeTime = 50;
 
     //Radiator check
     bool radCheck;
