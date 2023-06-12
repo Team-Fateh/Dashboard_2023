@@ -32,9 +32,9 @@
   Serial1.print(",");
   Serial1.print("0");   //rear right load cell
   Serial1.print(",");
-  Serial1.print("0");   //accelerometer x-axis
+  Serial1.print(g_x);   //accelerometer x-axis
   Serial1.print(",");
-  Serial1.print("0");   //accelerometer y-axis
+  Serial1.print(g_y);   //accelerometer y-axis
   Serial1.print(",");
   Serial1.println("0");   //steering angle  
     }

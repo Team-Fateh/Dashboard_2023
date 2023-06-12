@@ -14,6 +14,7 @@
 #include <xbee.cpp>
 #include <speed.cpp>
 #include <radiator_ckeck.cpp>
+#include <gyro_mpu_6050.cpp>
 
 void setup(){
   Serial.begin(115200); // Serial monitor
@@ -21,6 +22,7 @@ void setup(){
   Serial1.begin(230400, SERIAL_8N1, 33, 32);  // Xbee connected at 33,32(rx.tx) pins
   CAN_setup(CAN_FREQ);
   LED_setup();
+  setupMPU6050();
   // setup_speed();
   }
 
@@ -28,8 +30,7 @@ void setup(){
 
 
 void loop(){
-
-  
+  dataMPU6050();
   dur= pulseIn(gearPin,HIGH);
   gear2018();  
   CAN_get_data();  // can data
@@ -40,18 +41,20 @@ void loop(){
 
 if (millis() - xbeeLastTime >= xbeeTime)  //refresh screen at canTime
   {
-  send_xbee();                      // xbee data send 
-  xbeeLastTime = millis();
-  }
-  if (millis() - hmiLastTime >= hmiTime)  //refresh screen at canTime
-  {
+  send_xbee();                      // xbee data send
   HMI_print(4,RPM);
   HMI_print(5,(int32_t)temp);
   HMI_print(10,volts);
   HMI_print(6,(int32_t)Speed);
-  hmiLastTime = millis();
+  xbeeLastTime = millis();
+  }
+  if (millis() - hmiLastTime >= hmiTime)  //refresh screen at canTime
+  {
+  
   CAN.end();
   CAN.begin(CAN_FREQ);
+  
+  hmiLastTime = millis(); 
   }
   if (canThisTime - canLastTime >= canCheckTime)  //refresh screen at canTime
   {

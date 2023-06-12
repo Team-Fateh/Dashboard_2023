@@ -49,6 +49,14 @@
     #define speedPin 22    //front right
     #define slits 28   //Front wheel
     int lastTime=0;      
-    float Speed;        
+    float Speed;      
+
+    //Gyro MPU6050
+    int16_t ax, ay, az;
+    float g_x, g_y, g_z;
+    int ox=220;
+    int oy=-260;
+    int oz=0;
+    #define OUTPUT_READABLE_ACCELGYRO  
 
 #endif
