@@ -1,25 +1,20 @@
 #include <varible_def.h>        //Include variables in each function.cpp file
                                 //To avoid conflits #ifndef is used in variable.h
 #include<Arduino.h>
-
 #include<CAN.h>
 
 void CAN_setup (long freq ){                            //Starts CAN & puts out message if CAN starting failed  
      if(!CAN.begin(freq)){                              //freq is the CAN freq 500E3 or 1000E3 etc
         //Serial.println("Starting CAN failed");
         CANstatus=0;
-  }
+    }
     else{
         CANstatus=1;
     }
 }
 
-
-
-
-
 void CAN_get_data (){      //Puts data to the pointer 
-    packetSize = CAN.parsePacket();                                     //returns 1 if packet received or else 0
+    packetSize = CAN.parsePacket();                                   //returns 1 if packet received or else 0
     if(packetSize){
         hmiCANGreen();
         canLastTime = canThisTime;
@@ -41,7 +36,6 @@ void CAN_get_data (){      //Puts data to the pointer
         }
         RPM=((rMSB*255)+rLSB);       
         }
-
         //Temp packet
         if(packId==TEMPBATT_PKT_ID){     
         int e=0;

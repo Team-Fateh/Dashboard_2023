@@ -14,10 +14,6 @@ void CAN_setup (long freq ){                            //Starts CAN & puts out 
     }
 }
 
-
-
-
-
 void CAN_get_data (int32_t *p_RPM, float *p_temp, float *p_volts){      //Puts data to the pointer 
     Serial.println("Can_get_data_called");
     packetSize = CAN.parsePacket();                                     //returns 1 if packet received or else 0
@@ -46,7 +42,6 @@ void CAN_get_data (int32_t *p_RPM, float *p_temp, float *p_volts){      //Puts d
         Serial.print("RPM   ");
         Serial.println((rMSB*256)+rLSB); 
         }
-
         //Temp packet
         if(packId==TEMPBATT_PKT_ID){                                    //TEMPBATT_PKT_ID 218101064
             Serial.println("temp");
@@ -70,15 +65,12 @@ void CAN_get_data (int32_t *p_RPM, float *p_temp, float *p_volts){      //Puts d
             }
             CAN.read(); e++;
         }
-
         *p_temp =(((tMSB*256)+tLSB)*0.1);
         Serial.print("TEMP   ");
         Serial.println(((tMSB*256)+tLSB)*0.1); 
-
         *p_volts =((vMSB*256)+vLSB)*0.01;
         Serial.print("RPM   ");
         Serial.println(((vMSB*256)+vLSB)*0.01); 
-
         }
     }
 }

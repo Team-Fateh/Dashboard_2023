@@ -1,7 +1,8 @@
 #include <varible_def.h>
 #include<Arduino.h>
 #include<CAN.h>
-    void send_xbee(){
+
+void send_xbee(){
   Serial1.print(millis());
   Serial1.print(",");
   Serial1.print(RPM);
@@ -10,7 +11,7 @@
   Serial1.print(",");
   Serial1.print(gear);
   Serial1.print(",");
-  Serial1.print(Speed);   //speed
+  Serial1.print(SpeedRPM);   //speed
   Serial1.print(",");
   Serial1.print("0");   //brake pressure
   Serial1.print(",");
@@ -37,4 +38,4 @@
   Serial1.print(g_y);   //accelerometer y-axis
   Serial1.print(",");
   Serial1.println("0");   //steering angle  
-    }
+}
