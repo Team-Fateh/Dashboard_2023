@@ -5,7 +5,7 @@
     #define RPM_PKT_ID 218099784
     #define TEMPBATT_PKT_ID 218101064
     #define CAN_FREQ  1000E3
-    #define SPEED_UPDATE_FREQ 100
+    #define SPEED_UPDATE_FREQ 200
     
     //can
     bool CANstatus;
@@ -32,7 +32,7 @@
     //gear
     int dur;
     char gear;
-    #define gearPin 19
+    #define gearPin 16
 
     //RPM led
     #define led_num  18
@@ -44,7 +44,7 @@
 
     //speed
     volatile unsigned int totalCounts;
-    #define speedPin 18    //front right
+    #define speedPin 19    //front right
     #define slits 28   //Front wheel
     int lastTime=0;      
     float Speed;      

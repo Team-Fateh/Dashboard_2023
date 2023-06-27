@@ -32,13 +32,15 @@ void setup(){
 void loop(){
   dataMPU6050();
   dur= pulseIn(gearPin,HIGH);
-  Serial.println(dur);
   gear2018();  
   CAN_get_data();  // can data
   SpeedCount(SPEED_UPDATE_FREQ); // Speed refresh at 100 ms
   check_rad();
   showLightDis();
-  speedRF();
+  // speedRF();
+  if(gear=='N'||((gear=='1' || gear =='2') && RPM<2700)){
+    Speed=0;
+  }
 
   if (datalog == 1){
     if (filecreate == 1){
@@ -78,7 +80,7 @@ void loop(){
     String accely_SD = (String)g_y;
     String comma = "," ;
     int m = millis();
-    String mystr = m+comma+RPM_SD+comma+temp_SD+comma+gear_SD+comma+speed_SD+comma+battery_SD+comma+rad_SD+comma+datalog+comma+accelx_SD+comma+accely_SD+end;
+    String mystr = m+comma+RPM_SD+comma+temp_SD+comma+gear_SD+comma+speed_SD+comma+battery_SD+comma+rad_SD+comma+data_SD+comma+accelx_SD+comma+accely_SD+end;
     const char * input = mystr.c_str();
     appendFile(SD, file_name, input);
     if(digitalRead(sp)==0){
