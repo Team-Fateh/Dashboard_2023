@@ -19,22 +19,23 @@
 
 void setup(){
   Serial.begin(115200); // Serial monitor
+  EEPROM.begin(EEPROM_SIZE);
   Serial2.begin(9600, SERIAL_8N1, 26, 25); //HMI Display connected at 26,25(rx.tx) pins
   Serial1.begin(230400, SERIAL_8N1, 33, 32);  // Xbee connected at 33,32(rx.tx) pins
-  EEPROM.begin(EEPROM_SIZE);
   setupSD();
   CAN_setup(CAN_FREQ);
   LED_setup();
   setupMPU6050();
-  // setup_speed();
+  setup_speed();
   }
 
 void loop(){
   dataMPU6050();
   dur= pulseIn(gearPin,HIGH);
+  Serial.println(dur);
   gear2018();  
   CAN_get_data();  // can data
-  // SpeedCount(SPEED_UPDATE_FREQ); // Speed refresh at 100 ms
+  SpeedCount(SPEED_UPDATE_FREQ); // Speed refresh at 100 ms
   check_rad();
   showLightDis();
   speedRF();
@@ -61,7 +62,7 @@ void loop(){
         Serial.println("No SD card attached");
         return;
       }   
-      writeFile(SD, file_name, "Time,RPM,Temp,Gear,Speed,Battery,Radiator,AccelerometerX,AccelerometerY\n");
+      writeFile(SD, file_name, "Time,RPM,Temperature,Gear,Speed,Battery Voltage,Radiator,Data Logging,Accelerometer X,Accelerometer Y\n");
       readFile(SD, file_name);
       filecreate = 0;
     }
@@ -69,14 +70,15 @@ void loop(){
     String temp_SD = (String)temp ;
     String RPM_SD = (String)RPM ;
     String gear_SD = (String)gear;
-    String speed_SD = (String)SpeedRPM;
+    String speed_SD = (String)Speed;
     String battery_SD = (String)volts;
     String rad_SD = (String)radCheck;
+    String data_SD = (String)datalog;
     String accelx_SD = (String)g_x;
     String accely_SD = (String)g_y;
     String comma = "," ;
     int m = millis();
-    String mystr = m+comma+RPM_SD+comma+temp_SD+comma+gear_SD+comma+speed_SD+comma+battery_SD+comma+rad_SD+comma+accelx_SD+comma+accely_SD+end;
+    String mystr = m+comma+RPM_SD+comma+temp_SD+comma+gear_SD+comma+speed_SD+comma+battery_SD+comma+rad_SD+comma+datalog+comma+accelx_SD+comma+accely_SD+end;
     const char * input = mystr.c_str();
     appendFile(SD, file_name, input);
     if(digitalRead(sp)==0){
@@ -92,7 +94,7 @@ void loop(){
     HMI_print(4,RPM);
     HMI_print(5,(int32_t)temp);
     HMI_print(10,volts); 
-    HMI_print(6,(int32_t)SpeedRPM);
+    HMI_print(6,(int32_t)Speed);
     xbeeLastTime = millis();
   }
 
@@ -116,9 +118,11 @@ void loop(){
   Serial.print(",");
   Serial.print(gear);
   Serial.print(",");
-  Serial.print(SpeedRPM);   //speed
+  Serial.print(Speed);   //speed
   Serial.print(",");
   Serial.print(volts);
+  Serial.print(",");
+  Serial.print(datalog);
   Serial.print(",");
   Serial.print(radCheck);   //radiator
   Serial.print(",");
@@ -127,44 +131,3 @@ void loop(){
   Serial.println(g_y);   //accelerometer y-axis
 }
 
-// #include <Wire.h>
-
-// # define SDApin 21
-// # define SCLpin 22
-
-// void setup()
-// {
-//   Serial.begin (115200);
-//   Wire.begin (SDApin, SCLpin);   // sda= GPIO_21 /scl= GPIO_22
-// }
-
-// void Scanner ()
-// {
-//   Serial.println ();
-//   Serial.println ("I2C scanner. Scanning ...");
-//   byte count = 0;
-
-//   Wire.begin();
-//   for (byte i = 8; i < 120; i++)
-//   {
-//     Wire.beginTransmission (i);        // Begin I2C transmission Address (i)
-//     if (Wire.endTransmission () == 0)  // Receive 0 = success (ACK response)
-//     {
-//       Serial.print ("Found address: ");
-//       Serial.print (i, DEC);
-//       Serial.print (" (0x");
-//       Serial.print (i, HEX);     // PCF8574 7 bit address
-//       Serial.println (")");
-//       count++;
-//     }
-//   }
-//   Serial.print ("Found ");
-//   Serial.print (count, DEC);        // numbers of devices
-//   Serial.println (" device(s).");
-// }
-
-// void loop()
-// {
-//   Scanner ();
-//   delay (100);
-// }

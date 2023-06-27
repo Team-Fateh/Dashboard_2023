@@ -32,7 +32,7 @@
     //gear
     int dur;
     char gear;
-    #define gearPin 19\
+    #define gearPin 19
 
     //RPM led
     #define led_num  18
@@ -44,18 +44,27 @@
 
     //speed
     volatile unsigned int totalCounts;
-    #define speedPin 22    //front right
+    #define speedPin 18    //front right
     #define slits 28   //Front wheel
     int lastTime=0;      
     float Speed;      
 
     //Gyro MPU6050
     int16_t ax, ay, az;
-    float g_x, g_y, g_z;
-    int ox=220;
-    int oy=-260;
-    int oz=0;
-    #define OUTPUT_READABLE_ACCELGYRO  
+    float g_x, g_y;
+    float ox=1350.00;
+    float oy=1150.00;
+    int16_t AcX,AcY,AcZ;
+    const int numReadings = 10;  // Number of readings to average
+    const float smoothingFactor=0.2;
+    int readingsX[numReadings];
+    int readingsY[numReadings];  // Array to store raw readings
+    int currentIndexX = 0;
+    int currentIndexY = 0;       // Index of the current reading
+    int totalX = 0;
+    int totalY = 0;
+    // #define OUTPUT_READABLE_ACCELGYRO  
+    #define OUTPUT_BINARY_ACCELGYRO
 
     //SD_CARD
     #define EEPROM_SIZE 10  

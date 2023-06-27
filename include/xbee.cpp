@@ -19,7 +19,7 @@ void send_xbee(){
   Serial1.print(",");
   Serial1.print(radCheck);   //radiator
   Serial1.print(",");
-  Serial1.print("0");   //datalogging
+  Serial1.print(datalog);   //datalogging
   Serial1.print(",");
   Serial1.print("0");   //throttle position
   Serial1.print(",");

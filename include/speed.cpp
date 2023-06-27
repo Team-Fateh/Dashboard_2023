@@ -7,6 +7,7 @@ void speedISR(){
 }
 void setup_speed(){
   pinMode(speedPin,INPUT);
+  digitalWrite(speedPin, HIGH);
   attachInterrupt(digitalPinToInterrupt(speedPin),speedISR,FALLING);
 }
 
