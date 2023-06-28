@@ -37,9 +37,9 @@ void loop(){
   SpeedCount(SPEED_UPDATE_FREQ); // Speed refresh at 100 ms
   check_rad();
   showLightDis();
-  // speedRF();
+  speedRF();
   if(gear=='N'||((gear=='1' || gear =='2') && RPM<2700)){
-    Speed=0;
+    Speed=0.0;
   }
 
   if (datalog == 1){
@@ -73,6 +73,7 @@ void loop(){
     String RPM_SD = (String)RPM ;
     String gear_SD = (String)gear;
     String speed_SD = (String)Speed;
+    String speedRPM_SD = (String)SpeedRPM;
     String battery_SD = (String)volts;
     String rad_SD = (String)radCheck;
     String data_SD = (String)datalog;
@@ -80,7 +81,7 @@ void loop(){
     String accely_SD = (String)g_y;
     String comma = "," ;
     int m = millis();
-    String mystr = m+comma+RPM_SD+comma+temp_SD+comma+gear_SD+comma+speed_SD+comma+battery_SD+comma+rad_SD+comma+data_SD+comma+accelx_SD+comma+accely_SD+end;
+    String mystr = m+comma+RPM_SD+comma+temp_SD+comma+gear_SD+comma+speed_SD+comma+speedRPM_SD+comma+battery_SD+comma+rad_SD+comma+data_SD+comma+accelx_SD+comma+accely_SD+end;
     const char * input = mystr.c_str();
     appendFile(SD, file_name, input);
     if(digitalRead(sp)==0){
@@ -121,6 +122,8 @@ void loop(){
   Serial.print(gear);
   Serial.print(",");
   Serial.print(Speed);   //speed
+  Serial.print(",");
+  Serial.print(SpeedRPM);  
   Serial.print(",");
   Serial.print(volts);
   Serial.print(",");
