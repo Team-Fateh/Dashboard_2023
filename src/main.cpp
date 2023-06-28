@@ -64,7 +64,7 @@ void loop(){
         Serial.println("No SD card attached");
         return;
       }   
-      writeFile(SD, file_name, "Time,RPM,Temperature,Gear,Speed,Battery Voltage,Radiator,Data Logging,Accelerometer X,Accelerometer Y\n");
+      writeFile(SD, file_name, "Time,RPM,Temperature,Gear,Speed,SpeedRPM,Battery Voltage,Radiator,Data Logging,Accelerometer X,Accelerometer Y\n");
       readFile(SD, file_name);
       filecreate = 0;
     }
