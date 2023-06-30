@@ -1,5 +1,5 @@
 #include<Arduino.h>
-#include <varible_def.h>
+#include <variable_def.h>
 
 void speedRF(){
     if(gear == 'N'){

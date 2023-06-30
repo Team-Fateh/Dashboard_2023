@@ -4,7 +4,7 @@
 #include <CAN.h>
 #include <FastLED.h>
 //Variables
-#include <varible_def.h>
+#include <variable_def.h>
 //functions
 #include <HMI.cpp>
 #include <can_bus.cpp>
@@ -12,84 +12,36 @@
 #include <RPM_led.cpp>
 #include <xbee.cpp>
 #include <speed.cpp>
-#include <radiator_ckeck.cpp>
+#include <radiator_check.cpp>
 #include <gyro_mpu_6050.cpp>
 #include <SD_functions.cpp>
 #include <speedRPM.cpp>
 
 void setup(){
-  Serial.begin(115200); // Serial monitor
   EEPROM.begin(EEPROM_SIZE);
+  Serial.begin(115200); // Serial monitor
   Serial2.begin(9600, SERIAL_8N1, 26, 25); //HMI Display connected at 26,25(rx.tx) pins
   Serial1.begin(230400, SERIAL_8N1, 33, 32);  // Xbee connected at 33,32(rx.tx) pins
-  setupSD();
   CAN_setup(CAN_FREQ);
+  setup_SD();
   LED_setup();
-  setupMPU6050();
+  setup_MPU6050();
   setup_speed();
   }
 
 void loop(){
-  dataMPU6050();
+  data_MPU6050();
   dur= pulseIn(gearPin,HIGH);
   gear2018();  
   CAN_get_data();  // can data
   SpeedCount(SPEED_UPDATE_FREQ); // Speed refresh at 100 ms
-  check_rad();
+  // check_rad();
   showLightDis();
   speedRF();
   if(gear=='N'||((gear=='1' || gear =='2') && RPM<2700)){
     Speed=0.0;
   }
-
-  if (datalog == 1){
-    if (filecreate == 1){
-      a=EEPROM.read(i);
-      tempo = (int)a;
-      tempo++;
-      t = (String)tempo;
-      const char* n = t.c_str();
-      f= b+n+c;
-      file_name = f.c_str() ;
-      EEPROM.write(i,tempo);
-      EEPROM.commit();
-      SPI.end();
-      spi->begin(HSPI_SCLK, HSPI_MISO, HSPI_MOSI, HSPI_SS);  
-      if(!SD.begin(HSPI_SS,*spi)){
-        Serial.println("Card Mount Failed");
-        return;
-      }
-      uint8_t cardType = SD.cardType();
-      if(cardType == CARD_NONE){
-        Serial.println("No SD card attached");
-        return;
-      }   
-      writeFile(SD, file_name, "Time,RPM,Temperature,Gear,Speed,SpeedRPM,Battery Voltage,Radiator,Data Logging,Accelerometer X,Accelerometer Y\n");
-      readFile(SD, file_name);
-      filecreate = 0;
-    }
-    String end = "\n";
-    String temp_SD = (String)temp ;
-    String RPM_SD = (String)RPM ;
-    String gear_SD = (String)gear;
-    String speed_SD = (String)Speed;
-    String speedRPM_SD = (String)SpeedRPM;
-    String battery_SD = (String)volts;
-    String rad_SD = (String)radCheck;
-    String data_SD = (String)datalog;
-    String accelx_SD = (String)g_x;
-    String accely_SD = (String)g_y;
-    String comma = "," ;
-    int m = millis();
-    String mystr = m+comma+RPM_SD+comma+temp_SD+comma+gear_SD+comma+speed_SD+comma+speedRPM_SD+comma+battery_SD+comma+rad_SD+comma+data_SD+comma+accelx_SD+comma+accely_SD+end;
-    const char * input = mystr.c_str();
-    appendFile(SD, file_name, input);
-    if(digitalRead(sp)==0){
-    }
-    else{
-      datalog=0;
-    }
-  }
+  dataLogging();
 
   if (millis() - xbeeLastTime >= xbeeTime)  //refresh screen at canTime
   {
@@ -112,27 +64,5 @@ void loop(){
   {
     hmiCANRed();
   }
-
-  Serial.print(millis());
-  Serial.print(",");
-  Serial.print(RPM);
-  Serial.print(",");
-  Serial.print(temp);
-  Serial.print(",");
-  Serial.print(gear);
-  Serial.print(",");
-  Serial.print(Speed);   //speed
-  Serial.print(",");
-  Serial.print(SpeedRPM);  
-  Serial.print(",");
-  Serial.print(volts);
-  Serial.print(",");
-  Serial.print(datalog);
-  Serial.print(",");
-  Serial.print(radCheck);   //radiator
-  Serial.print(",");
-  Serial.print(g_x);   //accelerometer x-axis
-  Serial.print(",");
-  Serial.println(g_y);   //accelerometer y-axis
 }
 

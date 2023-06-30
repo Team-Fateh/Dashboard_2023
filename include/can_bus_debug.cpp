@@ -1,4 +1,4 @@
-#include <varible_def.h>        //Include variables in each function.cpp file
+#include <variable_def.h>        //Include variables in each function.cpp file
                                 //To avoid conflits #ifndef is used in variable.
 #include<Arduino.h>
 #include<CAN.h>

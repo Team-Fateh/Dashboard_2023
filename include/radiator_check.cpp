@@ -1,4 +1,4 @@
-#include <varible_def.h>
+#include <variable_def.h>
 #include<Arduino.h>
 #include<CAN.h>
 

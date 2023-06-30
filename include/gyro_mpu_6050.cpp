@@ -1,4 +1,4 @@
-#include <varible_def.h>        //Include variables in each function.cpp file
+#include <variable_def.h>        //Include variables in each function.cpp file
                                 //To avoid conflits #ifndef is used in variable.h
 #include<Arduino.h>
 #include "I2Cdev.h"
@@ -8,7 +8,7 @@
 #endif
 MPU6050 accelgyro;
 
-void setupMPU6050(){
+void setup_MPU6050(){
     #if I2CDEV_IMPLEMENTATION == I2CDEV_ARDUINO_WIRE
         Wire.begin();
     #elif I2CDEV_IMPLEMENTATION == I2CDEV_BUILTIN_FASTWIRE
@@ -26,8 +26,7 @@ float exponentialMovingAverage(float newValue)
   return filteredValue;
 }
 
-
-void dataMPU6050(){
+void data_MPU6050(){
     accelgyro.getAcceleration(&ax, &ay, &az);
     int16_t rawAcceleration[3];
    
@@ -45,11 +44,10 @@ void dataMPU6050(){
   if (currentIndexX >= numReadings) {
     currentIndexX = 0;
   }
-currentIndexY++;
+  currentIndexY++;
   if (currentIndexY >= numReadings) {
     currentIndexY = 0;
   }
-
   // Calculate the moving average
   float averageX = totalX / numReadings;
   float averageY = totalY / numReadings;
