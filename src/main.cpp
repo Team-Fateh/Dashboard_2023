@@ -26,7 +26,7 @@ void setup(){
   setup_SD();
   LED_setup();
   setup_MPU6050();
-  setup_speed();
+  // setup_speed();
   }
 
 void loop(){
@@ -34,7 +34,7 @@ void loop(){
   dur= pulseIn(gearPin,HIGH);
   gear2018();  
   CAN_get_data();  // can data
-  SpeedCount(SPEED_UPDATE_FREQ); // Speed refresh at 100 ms
+  // SpeedCount(SPEED_UPDATE_FREQ); // Speed refresh at 100 ms
   // check_rad();
   showLightDis();
   speedRF();
@@ -42,6 +42,7 @@ void loop(){
     Speed=0.0;
   }
   dataLogging();
+  brake=analogRead(35);
 
   if (millis() - xbeeLastTime >= xbeeTime)  //refresh screen at canTime
   {
@@ -49,7 +50,7 @@ void loop(){
     HMI_print(4,RPM);
     HMI_print(5,(int32_t)temp);
     HMI_print(10,volts); 
-    HMI_print(6,(int32_t)Speed);
+    HMI_print(6,(int32_t)SpeedRPM);
     xbeeLastTime = millis();
   }
 
@@ -64,5 +65,28 @@ void loop(){
   {
     hmiCANRed();
   }
+
+  Serial.print(millis());
+  Serial.print(",");
+  Serial.print(analogRead(35));
+  Serial.print(",");
+  Serial.print(RPM);
+  Serial.print(",");
+  Serial.print(temp);
+  Serial.print(",");
+  Serial.print(gear);
+  Serial.print(",");
+  Serial.print(SpeedRPM)                                                              ;  
+  Serial.print(",");
+  Serial.print(volts);
+  Serial.print(",");
+  Serial.print(datalog);
+  Serial.print(",");
+  Serial.print(radCheck);   //radiator
+  Serial.print(",");
+  Serial.print(g_x);   //accelerometer x-axis
+  Serial.print(",");
+  Serial.println(g_y);   //accelerometer y-axis
+
 }
 

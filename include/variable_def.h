@@ -20,7 +20,7 @@
     long unsigned int canThisTime = 0, canLastTime = 0, canCheckTime = 1000;
 
     //hmi
-    long unsigned int hmiLastTime = 0, hmiTime = 500;
+    long unsigned int hmiLastTime = 0, hmiTime = 400;
 
     //xbee
     long unsigned int xbeeLastTime = 0, xbeeTime = 50;
@@ -32,7 +32,7 @@
     //gear
     int dur;
     char gear;
-    #define gearPin 16
+    #define gearPin 18
 
     //RPM led
     #define led_num  18
@@ -44,7 +44,7 @@
 
     //speed
     volatile unsigned int totalCounts;
-    #define speedPin 19    //front right
+    #define speedPin 34    //front right
     #define slits 28   //Front wheel
     int lastTime=0;      
     float Speed;      
@@ -91,6 +91,7 @@
     char a ;
     int filecreate = 0;
     int datalog = 0;
+    int brake=0;
 
     //SpeedRPM
     #define fdr 3.118    //Final Drive Rtaio

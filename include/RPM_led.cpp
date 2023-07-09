@@ -10,6 +10,7 @@ void LED_setup(){
 
 void showLightCont(){                                 //Continuous Green to Red
    light=map(RPM, 0,11000, 0,19);
+   light=19;
    FastLED.clear();
    for (int i=0; i<=light; i++){
    leds[i]=CRGB(13.42*light,255-(13.42*light),0);

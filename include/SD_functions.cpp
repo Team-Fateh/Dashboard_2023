@@ -81,7 +81,7 @@ void dataLogging(){
                 Serial.println("No SD card attached");
                 return;
             }   
-            writeFile(SD, file_name, "Time,RPM,Temperature,Gear,Speed,SpeedRPM,Battery Voltage,Data Logging,Accelerometer X,Accelerometer Y\n");
+            writeFile(SD, file_name, "Time,RPM,Temperature,Gear,SpeedRPM,Brake Pressure,Battery Voltage,Data Logging,Accelerometer X,Accelerometer Y\n");
             filecreate = 0;
         }
         String temp_SD = (String)temp ;
@@ -92,13 +92,14 @@ void dataLogging(){
         String battery_SD = (String)volts;
         // String rad_SD = (String)radCheck;
         String data_SD = (String)datalog;
+        String brake_SD = (String)brake;
         String accelx_SD = (String)g_x;
         String accely_SD = (String)g_y;
         String comma = "," ;
         String end = "\n";
         int m = millis();
         String mystr = m+comma+RPM_SD+comma+temp_SD+comma+gear_SD
-                        +comma+speed_SD+comma+speedRPM_SD+comma+battery_SD
+                        +comma+comma+speedRPM_SD+comma+brake_SD+comma+battery_SD
                         +comma+data_SD+comma+accelx_SD+comma+accely_SD+end;
         const char * input = mystr.c_str();
         appendFile(SD, file_name, input);
