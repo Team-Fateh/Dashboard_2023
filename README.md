@@ -10,7 +10,7 @@ The system in the car is based largely on an **ESP32 microcontroller** and compa
 
 ### DAQ connection flowchart
 
-![DAQ connection flowchart](figure/DAQ_connection_flowchart.PNG)
+![DAQ connection flowchart](figures/DAQ_connection_flowchart.PNG)
 
 ---
 
@@ -18,11 +18,11 @@ The system in the car is based largely on an **ESP32 microcontroller** and compa
 
 ### Schematic Diagram representing DAQ System
 
-![Schematic Diagram of DAQ Unit](figure/Schematic_Diagram_of_DAQ_Unit.PNG)
+![Schematic Diagram of DAQ Unit](figures/Schematic_Diagram_of_DAQ_Unit.PNG)
 
 ### DAQ System Implementation
 
-![DAQ System Implementation](figure/DAQ_System_Implementation.PNG)
+![DAQ System Implementation](figures/DAQ_System_Implementation.PNG)
 
 ---
 
@@ -125,13 +125,13 @@ Along with the hardware components, software is a crucial part for Data Acquisit
 ### PlatformIO
 
 Used for compiling code to the microcontroller. PlatformIO is free, easy to use, and satisfies requirements for microcontroller programming. Entire software development was done using this software.
-![IDE_used_for_programming_MCU](figure/IDE_used_for_programming_MCU.PNG)
+![IDE_used_for_programming_MCU](figures/IDE_used_for_programming_MCU.PNG)
 
 ### PE3
 
 Software used to program the Engine Control Unit (ECU), controlling fuel and spark timing, and acquiring data from engine sensors such as coolant temperature and Manifold Absolute Pressure sensors. Used by the Powertrain department for tuning the engine and enhancing performance.
 
-![PE3 Software Interface](figure/PE3_Software_Interface.PNG)
+![PE3 Software Interface](figures/PE3_Software_Interface.PNG)
 
 ### Custom GUI for live telemetry
 
@@ -139,9 +139,9 @@ A custom GUI was created using the Processing language to show live data via wir
 
 #### Diagram Representation of Wireless Communication
 
-![Diagram Representation of Telemetry System](figure/Diagram_Representation_of_Telemetry_System.PNG)
+![Diagram Representation of Telemetry System](figures/Diagram_Representation_of_Telemetry_System.PNG)
 
 #### Custom GUI
 
-![GUI of Custom Telemetry](figure/GUI_of_Custom_Telemetry.PNG)
+![GUI of Custom Telemetry](figures/GUI_of_Custom_Telemetry.PNG)
 
